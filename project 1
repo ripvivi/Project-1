@@ -25,4 +25,4 @@ app.MapGet("/submit", async context =>
 });
 
 app.Run();
-
+dotnet run
