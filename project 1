@@ -1,20 +1,28 @@
-using System;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Hosting;
 
-class Program
+var builder = WebApplication.CreateBuilder(args);
+var app = builder.Build();
+
+app.MapGet("/", async context =>
 {
-    static void Main()
-    {
-        Console.Write("Enter your first name: ");
-        string firstName = Console.ReadLine();
-        
-        Console.Write("Enter your favorite color: ");
-        string favoriteColor = Console.ReadLine();
-        
-        Console.WriteLine($"Hello, {firstName}! It's great to know that your favorite color is {favoriteColor}.");
-        
-        Console.WriteLine("Here's a fun fact: Did you know that colors can influence your mood?");
-        
-        Console.WriteLine("Press any key to exit...");
-        Console.ReadKey();
-    }
-}
+    string htmlForm = @"
+        <form action='/submit' method='get'>
+            Enter your first name: <input type='text' name='firstName' /><br>
+            Enter your favorite color: <input type='text' name='favoriteColor' /><br>
+            <button type='submit'>Submit</button>
+        </form>";
+    await context.Response.WriteAsync(htmlForm);
+});
+
+app.MapGet("/submit", async context =>
+{
+    var firstName = context.Request.Query["firstName"];
+    var favoriteColor = context.Request.Query["favoriteColor"];
+
+    await context.Response.WriteAsync($"<h1>Hello, {firstName}! It's great to know that your favorite color is {favoriteColor}.</h1>");
+});
+
+app.Run();
+
