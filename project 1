@@ -1,0 +1,20 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter your first name: ");
+        string firstName = Console.ReadLine();
+        
+        Console.Write("Enter your favorite color: ");
+        string favoriteColor = Console.ReadLine();
+        
+        Console.WriteLine($"Hello, {firstName}! It's great to know that your favorite color is {favoriteColor}.");
+        
+        Console.WriteLine("Here's a fun fact: Did you know that colors can influence your mood?");
+        
+        Console.WriteLine("Press any key to exit...");
+        Console.ReadKey();
+    }
+}
